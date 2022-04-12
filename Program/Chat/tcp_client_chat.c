@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
         printf("Client Recv: %s \n", temp);
     }
     close(client_sock);
-    printf("Kunkok Univ. 201914302 Park Minju\n");
+    printf("Konkok Univ. 201914302 Park Minju\n");
 
     return 0;
 }

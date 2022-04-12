@@ -87,6 +87,6 @@ int main(int argc, char *argv[])
         }
     }
 
-    printf("Kunkok Univ. 201914302 Park Minju\n");
+    printf("Konkok Univ. 201914302 Park Minju\n");
     return 0;
 }
