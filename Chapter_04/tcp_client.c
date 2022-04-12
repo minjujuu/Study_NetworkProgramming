@@ -15,12 +15,13 @@ int main(int argc, char *argv[])
 
 	int n = 0;
 	
-	char* server_IP = "192.168.75.128";
+	char* server_IP = "";
 	char* server_PORT = "30000";
 	
 	char data[100];
 	
 	// 1. socket() --------------------------------------
+	// - IPPROTO_UDP: PF_INET과 SOCK_DGRAM을 모두 만족하는 프로토콜
 	client_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	
 	if(client_sock == -1) {

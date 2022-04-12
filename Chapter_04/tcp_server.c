@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
 	char temp[100];
 	
 	int n = 0, client_length = 0;
-	char* ser_ip = "192.168.75.128";
+	char* ser_ip = "";
 	char* ser_port = "30000";
 	
 	// 1. socket()
