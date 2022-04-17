@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 	char data[100];
 	
 	// 1. socket() --------------------------------------
-	// - IPPROTO_UDP: PF_INET과 SOCK_DGRAM을 모두 만족하는 프로토콜
+	// - IPPROTO_UDP: AF_INET과 SOCK_DGRAM을 모두 만족하는 프로토콜
 	client_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	
 	if(client_sock == -1) {
