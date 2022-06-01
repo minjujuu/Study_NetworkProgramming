@@ -57,7 +57,7 @@ int main(int args, char *argv[])
     // 실제 데이터 전송이 이뤄지는 영역
     while (!feof(fp)) /* Multicasting */
     {
-        fgets(buf, BUF_SIZE, fp);
+        fgets(buf, BUF_SIZE, fp); // 최대 30바이트까지 보냄 
         sendto(send_sock, buf, strlen(buf), 0, (struct sockaddr *)&mul_adr, sizeof(mul_adr));
         sleep(2);
     }
