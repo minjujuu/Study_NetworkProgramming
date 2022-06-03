@@ -40,13 +40,15 @@ int main(int argc, char *argv[])
         error_handling("listen() error");
 
     FD_ZERO(&reads); // reads = { }
-    FD_SET(serv_sock, &reads); // reads에 server sock 추가 // reads = { 3 }
-    fd_max = serv_sock; // fd_max = 3
+    FD_SET(serv_sock, &reads); // 서버 소켓을 관찰 대상으로 등록 // reads에 server sock 추가 // reads = { 3 }
+    fd_max = serv_sock; // 가장 큰 파일 디스크립터의 수 fd_max = 3
 
     while(1)
     {
-        cpy_reads = reads; //cpy_reads = {3} 
+        // fd_set의 원본을 유지하기 위한 복사 과정 
         // - 3은 serv_sock인데 클라이언트가 접속했을 때 3이 생기는 거라 클라이언트를 돌려야만 진행됨
+        cpy_reads = reads; //cpy_reads = {3} 
+        
         timeout.tv_sec = 5;
         timeout.tv_usec = 5000;
     
@@ -55,21 +57,22 @@ int main(int argc, char *argv[])
         if((fd_num = select(fd_max + 1, &cpy_reads, 0, 0, &timeout)) == -1) {
             break;
         }
+
         puts ("after select ");
-        if(fd_num == 0)
+        if(fd_num == 0) // time-out
             continue;
         
+        // select에서 0이나 -1 외의 숫자가 반환된 경우 (= 관찰 대상에 변화가 있었을 경우)
         for(int i=0; i<fd_max+1; i++)
         {
+            // 변화가 있는 파일 디스크립터를 탐색 
             if(FD_ISSET(i, &cpy_reads))
             {
-                printf("FD_ISSET(i, &cpy_reads) == true");
+                // 변화가 있는 파일 디스크립터가 서버 소켓이면 클라이언트로부터 연결 요청이 있었던 것이므로
                 if(i == serv_sock) // connection request !
                 {
-                    printf("i == serv_sock == true");
                     adr_sz = sizeof(clnt_adr);
                     clnt_sock = accept(serv_sock, (struct sockaddr *)&clnt_adr, &adr_sz);
-                    printf("clnt_sock = %d \n", clnt_sock);
 
                     FD_SET(clnt_sock, &reads); // reads = {3}
                     if (fd_max < clnt_sock)
