@@ -38,6 +38,7 @@ ssize_t sendto(int sock, void *buff, size_t nbytes, int flags, struct sockaddr* 
  * @param sock: 데이터 전송에 사용될 UDP 소켓의 파일 디스크립터 
  * @param *buff: 전송할 데이터를 저장하고 있는 버퍼의 주소 값
  * @param nbytes: 전송할 데이터 크기를 바이트 단위로 전달
+ * @param flags: 옵션 지정에 사용되는 매개변수, 지정할 옵션이 없다면 0 전달
  * @param to: 목적지 주소정보를 담고 있는 sockaddr 구조체 변수의 주소 값 전달
  * @param addrlen: 매개변수 to로 전달된 주소 값의 구조체 변수 크기 전달 
 
@@ -51,9 +52,10 @@ ssize_t sendto(int sock, void *buff, size_t nbytes, int flags, struct sockaddr* 
 ssize_t recvfrom(int sock, void *buff, size_t nbytes, int flags, struct sockaddr *from, socklen_t *addrlen);
  * @param sock: 데이터 전송에 사용될 UDP 소켓의 파일 디스크립터 
  * @param *buff: 전송할 데이터를 저장하고 있는 버퍼의 주소 값
- * @param nbytes: 전송할 데이터 크기를 바이트 단위로 전달
+ * @param nbytes: 수신할 최대 바이트 수 전달, 때문에 buff가 가리키는 버퍼의 크기를 넘을 수 없다
+ * @param flags: 옵션 지정에 사용되는 매개변수, 지정할 옵션이 없다면 0 전달
  * @param from: 발신지 정보를 채워 넣을 sockaddr 구조체 변수의 주소
- * @param addrlen: 매개변수 to로 전달된 주소 값의 구조체 변수 크기 
+ * @param addrlen: 매개변수 from으로 전달된 주소에 해당하는 구조체 변수의 크기정보를 담고 있는 변수의 주소값 전달 
 ----------------------------------------------------------------
 
 데이터의 경계가 존재하는 UDP 소켓
